@@ -45,7 +45,6 @@ begin
 end;
 
 procedure TForm1.buttonReadClick(Sender: TObject);
-
 var
   i: integer = 1;
   p: integer;
