@@ -12,9 +12,11 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    buttonNew: TButton;
     buttonRead: TButton;
     openDialog: TOpenDialog;
     stringGrid: TStringGrid;
+    procedure buttonNewClick(Sender: TObject);
     procedure buttonReadClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -89,11 +91,28 @@ begin
           i := i + 1;
         end;
       until EOF(aFile);
+
+      CloseFile(aFile);
+      ShowMessage('Einlesen erfolgreich.');
     end;
 
-  finally
+  except
     CloseFile(aFile);
+    ShowMessage('Einlesen nicht erfolgreich.');
   end;
+end;
+
+procedure TForm1.buttonNewClick(Sender: TObject);
+begin
+  // add new row
+  stringGrid.RowCount := stringGrid.RowCount + 1;
+
+  // copy old cell
+  stringGrid.Cells[1, stringGrid.RowCount - 1] :=
+    stringGrid.Cells[2, stringGrid.RowCount - 2];
+
+  // enter current date
+  stringGrid.Cells[0, stringGrid.RowCount - 1] := DateToStr(Date());
 end;
 
 end.
