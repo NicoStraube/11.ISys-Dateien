@@ -12,12 +12,15 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    buttonSave: TButton;
     buttonNew: TButton;
     buttonRead: TButton;
     openDialog: TOpenDialog;
+    saveDialog: TSaveDialog;
     stringGrid: TStringGrid;
     procedure buttonNewClick(Sender: TObject);
     procedure buttonReadClick(Sender: TObject);
+    procedure buttonSaveClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
 
@@ -113,6 +116,27 @@ begin
 
   // enter current date
   stringGrid.Cells[0, stringGrid.RowCount - 1] := DateToStr(Date());
+end;
+
+procedure TForm1.buttonSaveClick(Sender: TObject);
+var
+  i: integer;
+begin
+  if (saveDialog.Execute = True) then
+  begin
+    AssignFile(aFile, saveDialog.FileName);
+    Rewrite(aFile);
+
+    for i := 1 to stringGrid.RowCount - 1 do
+    begin
+      row := stringGrid.cells[0, i] + '#' + stringGrid.Cells[1, i] +
+        '#' + stringGrid.Cells[2, i] + '#' + stringGrid.Cells[3, i] +
+        '#' + stringGrid.Cells[4, i] + '#' + stringGrid.Cells[5, i];
+      WriteLn(aFile, row);
+    end;
+
+    CloseFile(aFile);
+  end;
 end;
 
 end.

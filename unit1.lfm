@@ -36,7 +36,20 @@ object Form1: TForm1
     OnClick = buttonNewClick
     TabOrder = 2
   end
+  object buttonSave: TButton
+    Left = 216
+    Height = 25
+    Top = 207
+    Width = 75
+    Caption = 'save'
+    OnClick = buttonSaveClick
+    TabOrder = 3
+  end
   object openDialog: TOpenDialog
+    Left = 520
+    Top = 192
+  end
+  object saveDialog: TSaveDialog
     Left = 584
     Top = 192
   end
